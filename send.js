@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // require the amqp library
 const amqp = require('amqplib/callback_api');
 
