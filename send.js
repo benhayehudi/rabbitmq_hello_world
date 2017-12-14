@@ -8,12 +8,12 @@ amqp.connect('amqp://localhost', function(err, conn) {
   conn.createChannel(function(err, ch) {
     // define two variables: q == queue & msg = message
     let q = "hello";
-    let msg = "Hello World!";
+    let msg = process.argv.slice(2).join(' ') || "Hello World!";
 
     // set up the queue in the channel
     ch.assertQueue(q, {durable: false});
     // send to queue the message
-    ch.sendToQueue(q, new Buffer(msg));
+    ch.sendToQueue(q, new Buffer(msg), {persistent: true});
 
     // show us the successful sending of msg
     console.log(" [x] Sent %s", msg);

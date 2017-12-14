@@ -13,7 +13,15 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
     // async function to receive the message
     ch.consume(q, function(msg) {
+      // simulate work, each "." eq 1 sec of work
+      let secs = msg.content.toString().split('.').length - 1;
+
       console.log(" [x] Received %s", msg.content.toString());
+
+      // simulate executing the work 
+      setTimeout(function() {
+        console.log(" [x] Done");
+      }, secs * 1000);
     }, {noAck: true});
   });
 });
